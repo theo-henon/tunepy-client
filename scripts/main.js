@@ -1,7 +1,6 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.min.js';
+import {LoginForm} from "./loginForm.js";
 
-document.querySelector("#app").innerHTML = `
-    <h1>Hello World!</h1>
-    <p>You are a beautiful person!</p>
-`;
+
+let loginForm = new LoginForm()
+
+document.querySelector("#app").appendChild(loginForm);
