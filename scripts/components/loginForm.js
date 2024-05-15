@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
+import {BootstrapButton} from "./bootstrapButton.js";
 
 export class LoginForm extends HTMLFormElement {
     constructor() {
@@ -36,11 +37,7 @@ export class LoginForm extends HTMLFormElement {
         this.appendChild(fieldBlock2);
 
         // Create submit button
-        this.submitButton = document.createElement("button");
-        this.submitButton.textContent = "Submit";
-        this.submitButton.type = "submit";
-        this.submitButton.id = "submitButton";
-        this.submitButton.classList.add("btn", "btn-primary");
+        this.submitButton = new BootstrapButton("submitButton", "Login", "submit");
         this.appendChild(this.submitButton);
 
         // Bind submit event
