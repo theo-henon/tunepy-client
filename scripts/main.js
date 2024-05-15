@@ -1,5 +1,5 @@
-import {LoginForm} from "./loginForm.js";
-import {RegisterForm} from "./registerForm.js";
+import {LoginForm} from "./components/loginForm.js";
+import {RegisterForm} from "./components/registerForm.js";
 
 
 let loginForm = new LoginForm()
