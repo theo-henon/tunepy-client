@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import {BootstrapButton} from "./bootstrapButton.js";
 import {FieldBlock} from "./fieldBlock.js";
+import {Request} from "../utils/request.js";
 
 export class RegisterForm extends HTMLFormElement {
     constructor() {
@@ -37,20 +38,14 @@ export class RegisterForm extends HTMLFormElement {
             return;
         }
 
-        const requestBody = {
+        const response = await Request.post("/users/register", {
             "username": username,
             "password": password
-        };
-
-        const response = await fetch("http://localhost:5000/users/register", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(requestBody)
         });
 
         const responseBody = await response.json();
+        if (response.ok)
+            localStorage.setItem("access_token", responseBody.access_token);
         alert(responseBody.msg);
     }
 }

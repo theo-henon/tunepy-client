@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import {BootstrapButton} from "./bootstrapButton.js";
 import {FieldBlock} from "./fieldBlock.js";
+import {Request} from "../utils/request.js"
 
 export class LoginForm extends HTMLFormElement {
     constructor() {
@@ -27,17 +28,9 @@ export class LoginForm extends HTMLFormElement {
         if (!username || !password)
             return;
 
-        const requestBody = {
+        const response = await Request.post("/users/login", {
             "username": username,
             "password": password
-        };
-
-        const response = await fetch("http://localhost:5000/users/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(requestBody)
         });
 
         const responseBody = await response.json();
