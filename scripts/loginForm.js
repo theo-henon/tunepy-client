@@ -47,9 +47,31 @@ export class LoginForm extends HTMLFormElement {
         this.addEventListener("submit", this.submit)
     }
 
-    submit(event) {
+    async submit(event) {
         event.preventDefault();
-        alert(`Username: ${this.usernameField.value}, Password: ${this.passwordField.value}`);
+        const username = this.usernameField.value;
+        const password = this.passwordField.value;
+
+        if (!username || !password)
+            return;
+
+        const requestBody = {
+            "username": username,
+            "password": password
+        };
+
+        const response = await fetch("http://localhost:5000/users/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestBody)
+        });
+
+        const responseBody = await response.json();
+        if (response.ok)
+            localStorage.setItem("access_token", responseBody.access_token);
+        alert(responseBody.msg);
     }
 }
 
