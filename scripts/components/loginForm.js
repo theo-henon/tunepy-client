@@ -14,8 +14,25 @@ export class LoginForm extends HTMLFormElement {
         this.passwordField = new FieldBlock("password", "password", "Password");
         this.appendChild(this.passwordField);
 
+        const buttonsContainer = document.createElement("div");
+        buttonsContainer.classList.add("container");
+        const firstRow = document.createElement("div");
+        firstRow.classList.add("row");
+
+        const firstCol = document.createElement("div");
+        firstCol.classList.add("col");
         this.submitButton = new BootstrapButton("submitButton", "Login", "submit");
-        this.appendChild(this.submitButton);
+        firstCol.appendChild(this.submitButton);
+        firstRow.appendChild(firstCol);
+
+        const secondCol = document.createElement("div");
+        secondCol.classList.add("col");
+        this.registerLink = new BootstrapButton("registerLink", "Create an account", "button", "btn-dark");
+        secondCol.appendChild(this.registerLink);
+        firstRow.appendChild(secondCol);
+
+        buttonsContainer.appendChild(firstRow);
+        this.appendChild(buttonsContainer);
 
         this.addEventListener("submit", this.submit)
     }
