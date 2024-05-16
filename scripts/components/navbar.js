@@ -1,4 +1,3 @@
-import logo from "../../public/vite.svg";
 
 export class Navbar extends HTMLElement {
     constructor() {
@@ -31,7 +30,7 @@ export class Navbar extends HTMLElement {
 
     createBrand() {
         const img = document.createElement("img");
-        img.src = logo;
+        img.src = "/vite.svg";
         img.alt = "Logo";
         img.style.width = "30px";
         img.style.height = "30px";
