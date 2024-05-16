@@ -7,4 +7,5 @@ let loginForm = new LoginForm()
 let registerForm = new RegisterForm()
 let navbar = new Navbar();
 
-document.querySelector("#app").appendChild(navbar);
+export const app = document.querySelector("#app");
+app.appendChild(navbar);

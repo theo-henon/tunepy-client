@@ -1,3 +1,6 @@
+import {app} from '../main.js';
+import {LoginForm} from "./loginForm.js";
+
 
 export class Navbar extends HTMLElement {
     constructor() {
@@ -16,9 +19,14 @@ export class Navbar extends HTMLElement {
 
         const navItems = [
             {text: "Home", active: true},
-            {text: "Songs", onclick: () => alert("Display songs")},
+            {text: "Songs"},
             {text: "Playlists"},
-            {text: "Account"},
+            {text: "Login", onclick: () => {
+                const page = app.children[1];
+                if (page)
+                    app.removeChild(page);
+                app.appendChild(new LoginForm());
+                }},
         ];
 
         navItems.forEach(item => this.addItem(item));
