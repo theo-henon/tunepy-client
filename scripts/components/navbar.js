@@ -1,3 +1,5 @@
+import logo from "../../public/vite.svg";
+
 export class Navbar extends HTMLElement {
     constructor() {
         super();
@@ -28,6 +30,14 @@ export class Navbar extends HTMLElement {
     }
 
     createBrand() {
+        const img = document.createElement("img");
+        img.src = logo;
+        img.alt = "Logo";
+        img.style.width = "30px";
+        img.style.height = "30px";
+        img.classList.add("me-2");
+        this.container.appendChild(img);
+
         this.brand = document.createElement("a");
         this.brand.classList.add("navbar-brand");
         this.brand.innerText = "TunePy";
