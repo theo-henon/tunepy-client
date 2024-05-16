@@ -3,6 +3,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import {BootstrapButton} from "./bootstrapButton.js";
 import {FieldBlock} from "./fieldBlock.js";
 import {Request} from "../utils/request.js"
+import {Container} from "./container.js";
 
 export class LoginForm extends HTMLFormElement {
     constructor() {
@@ -14,24 +15,11 @@ export class LoginForm extends HTMLFormElement {
         this.passwordField = new FieldBlock("password", "password", "Password");
         this.appendChild(this.passwordField);
 
-        const buttonsContainer = document.createElement("div");
-        buttonsContainer.classList.add("container");
-        const firstRow = document.createElement("div");
-        firstRow.classList.add("row");
 
-        const firstCol = document.createElement("div");
-        firstCol.classList.add("col");
+        const buttonsContainer = new Container();
         this.submitButton = new BootstrapButton("submitButton", "Login", "submit");
-        firstCol.appendChild(this.submitButton);
-        firstRow.appendChild(firstCol);
-
-        const secondCol = document.createElement("div");
-        secondCol.classList.add("col");
         this.registerLink = new BootstrapButton("registerLink", "Create an account", "button", "btn-dark");
-        secondCol.appendChild(this.registerLink);
-        firstRow.appendChild(secondCol);
-
-        buttonsContainer.appendChild(firstRow);
+        buttonsContainer.addRow([Container.createColumn(this.submitButton), Container.createColumn(this.registerLink)]);
         this.appendChild(buttonsContainer);
 
         this.addEventListener("submit", this.submit)
