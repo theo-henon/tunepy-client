@@ -1,7 +1,3 @@
-import {app} from '../main.js';
-import {LoginForm} from "./loginForm.js";
-
-
 export class Navbar extends HTMLElement {
     constructor(items) {
         super();
