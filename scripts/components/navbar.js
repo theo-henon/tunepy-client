@@ -3,7 +3,7 @@ import {LoginForm} from "./loginForm.js";
 
 
 export class Navbar extends HTMLElement {
-    constructor() {
+    constructor(items) {
         super();
         this.classList.add("navbar", "navbar-expand-lg", "navbar-light", "bg-light");
 
@@ -17,19 +17,8 @@ export class Navbar extends HTMLElement {
         this.nav = document.createElement("ul");
         this.nav.classList.add("navbar-nav");
 
-        const navItems = [
-            {text: "Home", active: true},
-            {text: "Songs"},
-            {text: "Playlists"},
-            {text: "Login", onclick: () => {
-                const page = app.children[1];
-                if (page)
-                    app.removeChild(page);
-                app.appendChild(new LoginForm());
-                }},
-        ];
 
-        navItems.forEach(item => this.addItem(item));
+        items.forEach(item => this.addItem(item));
         this.collapse.appendChild(this.nav);
         this.container.appendChild(this.collapse);
 
