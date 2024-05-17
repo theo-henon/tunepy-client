@@ -1,5 +1,6 @@
 import {LoginForm} from "./components/loginForm.js";
 import {Navbar} from "./components/navbar.js";
+import {ComponentsPage} from "./pages/componentsPage.js";
 
 export class App {
     constructor() {
@@ -21,5 +22,7 @@ export class App {
         ];
         this.navbar = new Navbar(navItems);
         this.app.appendChild(this.navbar);
+
+        this.app.appendChild(new ComponentsPage());
     }
 }
