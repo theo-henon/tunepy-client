@@ -3,6 +3,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import {BootstrapButton} from "./bootstrapButton.js";
 import {FieldBlock} from "./fieldBlock.js";
 import {Request} from "../utils/request.js";
+import {Container} from "./container.js";
 
 export class RegisterForm extends HTMLFormElement {
     constructor() {
@@ -17,8 +18,10 @@ export class RegisterForm extends HTMLFormElement {
         this.passwordRepeatField = new FieldBlock("passwordRepeat", "password", "Repeat password");
         this.appendChild(this.passwordRepeatField);
 
+        const buttonsContainer = new Container();
         this.submitButton = new BootstrapButton("submitButton", "Register", "submit");
-        this.appendChild(this.submitButton);
+        buttonsContainer.addRow([Container.createColumn(this.submitButton)]);
+        this.appendChild(buttonsContainer);
 
         // Bind submit event
         this.addEventListener("submit", this.submit)
