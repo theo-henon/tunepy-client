@@ -18,7 +18,7 @@ export class LoginForm extends HTMLFormElement {
 
         const buttonsContainer = new Container();
         this.submitButton = new BootstrapButton("submitButton", "Login", "submit");
-        this.registerLink = new BootstrapButton("registerLink", "Create an account", "button", "btn-dark");
+        this.registerLink = new BootstrapButton("registerLink", "Create an account", "button", "dark");
         buttonsContainer.addRow([Container.createColumn(this.submitButton), Container.createColumn(this.registerLink)]);
         this.appendChild(buttonsContainer);
 
