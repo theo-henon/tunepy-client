@@ -63,8 +63,10 @@ export class Navbar extends HTMLElement {
         const navLink = document.createElement("a");
         navLink.classList.add("nav-link");
 
-        if (item.active)
+        if (item.active) {
             navLink.classList.add("active");
+            this.selectedItem = navLink;
+        }
 
         if (item.disabled) {
             navLink.classList.add("disabled");
@@ -72,7 +74,12 @@ export class Navbar extends HTMLElement {
         }
 
         if (item.onclick)
-            navLink.onclick = item.onclick;
+            navLink.addEventListener("click", (event) => {
+                event.target.classList.toggle("active");
+                this.selectedItem.classList.toggle("active");
+                this.selectedItem = event.target;
+                item.onclick();
+            });
 
         navLink.innerText = item.text;
         navLink.href = "#"
