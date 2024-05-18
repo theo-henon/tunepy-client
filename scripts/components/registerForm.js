@@ -1,11 +1,11 @@
 import {BootstrapButton} from "./bootstrapButton.js";
 import {FieldBlock} from "./fieldBlock.js";
 import {Request} from "../utils/request.js";
-import {Container} from "./container.js";
 
 export class RegisterForm extends HTMLFormElement {
     constructor() {
-        super()
+        super();
+        this.classList.add("d-flex", "flex-column", "justify-content-center", "align-items-center");
 
         this.usernameField = new FieldBlock("username", "text", "Username");
         this.appendChild(this.usernameField);
@@ -16,10 +16,8 @@ export class RegisterForm extends HTMLFormElement {
         this.passwordRepeatField = new FieldBlock("passwordRepeat", "password", "Repeat password");
         this.appendChild(this.passwordRepeatField);
 
-        const buttonsContainer = new Container();
         this.submitButton = new BootstrapButton("submitButton", "Register", "submit", "primary", "person-fill-add");
-        buttonsContainer.addRow([Container.createColumn(this.submitButton)]);
-        this.appendChild(buttonsContainer);
+        this.appendChild(this.submitButton);
 
         // Bind submit event
         this.addEventListener("submit", this.submit)

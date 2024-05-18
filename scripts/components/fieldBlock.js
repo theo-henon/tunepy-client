@@ -1,7 +1,7 @@
 export class FieldBlock extends HTMLDivElement {
     constructor(id, type="button", labelText="Form control") {
         super();
-        this.className = "mb-3";
+        this.classList.add("mb-3", "w-100");
 
         // Create label element
         this.label = document.createElement("label");

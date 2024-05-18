@@ -1,6 +1,6 @@
-import {LoginForm} from "./components/loginForm.js";
 import {Navbar} from "./components/navbar.js";
 import {ComponentsPage} from "./pages/componentsPage.js";
+import {LoginPage} from "./pages/loginPage.js";
 
 export class App {
     constructor() {
@@ -16,7 +16,7 @@ export class App {
                     const page = this.app.children[1];
                     if (page)
                         this.app.removeChild(page);
-                    this.app.appendChild(new LoginForm());
+                    this.app.appendChild(new LoginPage());
                 }
             },
         ];
