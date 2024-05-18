@@ -4,17 +4,23 @@ import {Request} from "../utils/request.js";
 export class LoginPage extends HTMLDivElement {
     constructor() {
         super();
-        this.classList.add("d-flex", "justify-content-center", "align-items-center");
+        this.classList.add("d-flex", "flex-column", "justify-content-center", "align-items-center");
 
         this.loginForm = new LoginForm();
         this.loginForm.style.width = "25%";
         this.loginForm.addEventListener("submit", async event => this.login(event));
-
         this.appendChild(this.loginForm);
+
+        this.loginStatus = document.createElement("p");
+        this.loginStatus.innerHTML = "Trying to log in...";
+        this.loginStatus.hidden = true;
+        this.appendChild(this.loginStatus);
     }
 
     async login(event) {
         event.preventDefault();
+
+        this.loginStatus.hidden = false;
         const username = this.loginForm.getUsername();
         const password = this.loginForm.getPassword();
 
@@ -26,9 +32,14 @@ export class LoginPage extends HTMLDivElement {
             "password": password
         });
 
+        this.loginStatus.hidden = true;
+        if (!response)
+            return;
+
         const responseBody = await response.json();
         if (response.ok)
             localStorage.setItem("access_token", responseBody.access_token);
+        this.removeChild(msg);
         alert(responseBody.msg);
     }
 }
