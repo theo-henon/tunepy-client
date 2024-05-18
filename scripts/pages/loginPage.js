@@ -41,7 +41,6 @@ export class LoginPage extends HTMLDivElement {
             localStorage.setItem("username", username);
             localStorage.setItem("access_token", responseBody.access_token);
         }
-        this.removeChild(msg);
         alert(responseBody.msg);
     }
 }
