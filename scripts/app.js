@@ -6,12 +6,16 @@ export class App {
     constructor() {
         this.app = document.getElementById('app');
 
+        // Create all pages
+        this.loginPage = new LoginPage();
+        this.componentsPage = new ComponentsPage();
+
         // Create navigation bar
         const navItems = [
             {text: "Songs", active: true},
             {text: "Playlists"},
-            {text: "Login", onclick: () => this.displayPage(new LoginPage())},
-            {text: "Components (Debug)", onclick: () => this.displayPage(new ComponentsPage())},
+            {text: "Login", onclick: () => this.displayPage(this.loginPage)},
+            {text: "Components (Debug)", onclick: () => this.displayPage(this.componentsPage)},
         ];
         this.navbar = new Navbar(navItems);
         this.app.appendChild(this.navbar);
