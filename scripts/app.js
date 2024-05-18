@@ -8,21 +8,21 @@ export class App {
 
         // Create navigation bar
         const navItems = [
-            {text: "Home", active: true},
-            {text: "Songs"},
+            {text: "Songs", active: true},
             {text: "Playlists"},
-            {
-                text: "Login", onclick: () => {
-                    const page = this.app.children[1];
-                    if (page)
-                        this.app.removeChild(page);
-                    this.app.appendChild(new LoginPage());
-                }
-            },
+            {text: "Login", onclick: () => this.displayPage(new LoginPage())},
+            {text: "Components (Debug)", onclick: () => this.displayPage(new ComponentsPage())},
         ];
         this.navbar = new Navbar(navItems);
         this.app.appendChild(this.navbar);
 
         this.app.appendChild(new ComponentsPage());
+    }
+
+    displayPage(newPage) {
+        const currentPage = this.app.children[1];
+        if (currentPage)
+            this.app.removeChild(currentPage);
+        this.app.appendChild(newPage);
     }
 }
