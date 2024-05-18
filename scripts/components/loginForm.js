@@ -1,6 +1,5 @@
 import {BootstrapButton} from "./bootstrapButton.js";
 import {FieldBlock} from "./fieldBlock.js";
-import {Request} from "../utils/request.js"
 
 export class LoginForm extends HTMLFormElement {
     constructor() {
@@ -23,27 +22,14 @@ export class LoginForm extends HTMLFormElement {
         buttonsContainer.appendChild(this.submitButton);
         buttonsContainer.appendChild(this.registerButton);
         this.appendChild(buttonsContainer);
-
-        this.addEventListener("submit", this.submit)
     }
 
-    async submit(event) {
-        event.preventDefault();
-        const username = this.usernameField.getValue();
-        const password = this.passwordField.getValue();
+    getUsername() {
+        return this.usernameField.getValue();
+    }
 
-        if (!username || !password)
-            return;
-
-        const response = await Request.post("/users/login", {
-            "username": username,
-            "password": password
-        });
-
-        const responseBody = await response.json();
-        if (response.ok)
-            localStorage.setItem("access_token", responseBody.access_token);
-        alert(responseBody.msg);
+    getPassword() {
+        return this.passwordField.getValue();
     }
 }
 
