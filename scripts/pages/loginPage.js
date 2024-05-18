@@ -37,8 +37,10 @@ export class LoginPage extends HTMLDivElement {
             return;
 
         const responseBody = await response.json();
-        if (response.ok)
+        if (response.ok) {
+            localStorage.setItem("username", username);
             localStorage.setItem("access_token", responseBody.access_token);
+        }
         this.removeChild(msg);
         alert(responseBody.msg);
     }
