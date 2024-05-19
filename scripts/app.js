@@ -4,6 +4,7 @@ import {LoginPage} from "./pages/loginPage.js";
 import {Request} from "./utils/request.js";
 import {RegisterPage} from "./pages/registerPage.js";
 import {ProfilePage} from "./pages/profilePage.js";
+import {SongsPage} from "./pages/songsPage.js";
 
 export class App {
     constructor() {
@@ -14,6 +15,7 @@ export class App {
         this.loginPage = new LoginPage(async () => this.login(), () => this.displayPage(this.registerPage));
         this.componentsPage = new ComponentsPage();
         this.profilePage = new ProfilePage(localStorage.getItem("username"));
+        this.songsPage = new SongsPage();
 
         // Create navigation bar
         const username = localStorage.getItem("username");
@@ -22,10 +24,10 @@ export class App {
             onclick: username ? _ => this.displayPage(this.profilePage) : _ => this.displayPage(this.loginPage)
         }
         const navItems =     [
-            {text: "Songs", active: true},
+            {text: "Songs", active: true, onclick: _ => this.displayPage(this.songsPage)},
             {text: "Playlists"},
             accountItem,
-            {text: "Components (Debug)", onclick: () => this.displayPage(this.componentsPage)},
+            {text: "Components (Debug)", onclick: _ => this.displayPage(this.componentsPage)},
         ];
         this.navbar = new Navbar(navItems);
         this.app.appendChild(this.navbar);
