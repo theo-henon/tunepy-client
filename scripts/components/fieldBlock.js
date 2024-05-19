@@ -1,5 +1,5 @@
 export class FieldBlock extends HTMLDivElement {
-    constructor(id, type="button", labelText="Form control") {
+    constructor(id, type="button", labelText="Form control", required = true) {
         super();
         this.classList.add("mb-3", "w-100");
 
@@ -14,6 +14,7 @@ export class FieldBlock extends HTMLDivElement {
         this.input.type = type;
         this.input.id = id;
         this.input.classList.add("form-control");
+        this.input.required = required;
         this.appendChild(this.input);
     }
 
