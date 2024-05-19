@@ -3,6 +3,7 @@ import {ComponentsPage} from "./pages/componentsPage.js";
 import {LoginPage} from "./pages/loginPage.js";
 import {Request} from "./utils/request.js";
 import {RegisterPage} from "./pages/registerPage.js";
+import {ProfilePage} from "./pages/profilePage.js";
 
 export class App {
     constructor() {
@@ -12,12 +13,18 @@ export class App {
         this.registerPage = new RegisterPage(async () => this.register());
         this.loginPage = new LoginPage(async () => this.login(), () => this.displayPage(this.registerPage));
         this.componentsPage = new ComponentsPage();
+        this.profilePage = new ProfilePage(localStorage.getItem("username"));
 
         // Create navigation bar
-        const navItems = [
+        const username = localStorage.getItem("username");
+        const accountItem = {
+            text: username ? "My profile" : "Login",
+            onclick: username ? _ => this.displayPage(this.profilePage) : _ => this.displayPage(this.loginPage)
+        }
+        const navItems =     [
             {text: "Songs", active: true},
             {text: "Playlists"},
-            {text: "Login", onclick: () => this.displayPage(this.loginPage)},
+            accountItem,
             {text: "Components (Debug)", onclick: () => this.displayPage(this.componentsPage)},
         ];
         this.navbar = new Navbar(navItems);
