@@ -8,7 +8,8 @@ export class App {
         this.app = document.getElementById('app');
 
         // Create all pages
-        this.loginPage = new LoginPage(async () => this.login());
+
+        this.loginPage = new LoginPage(async () => this.login(), () => alert("Toto"));
         this.componentsPage = new ComponentsPage();
 
         // Create navigation bar

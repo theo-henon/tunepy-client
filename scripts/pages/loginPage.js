@@ -1,11 +1,11 @@
 import {LoginForm} from "../components/loginForm.js";
 
 export class LoginPage extends HTMLDivElement {
-    constructor(loginAction) {
+    constructor(loginAction, registerBtnAction) {
         super();
         this.classList.add("d-flex", "flex-column", "justify-content-center", "align-items-center");
 
-        this.loginForm = new LoginForm();
+        this.loginForm = new LoginForm(registerBtnAction);
         this.loginForm.style.width = "25%";
         this.loginForm.addEventListener("submit", async event => {
             event.preventDefault();

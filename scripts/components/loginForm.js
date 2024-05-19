@@ -2,7 +2,7 @@ import {BootstrapButton} from "./bootstrapButton.js";
 import {FieldBlock} from "./fieldBlock.js";
 
 export class LoginForm extends HTMLFormElement {
-    constructor() {
+    constructor(registerBtnAction) {
         super();
         this.classList.add("d-flex", "flex-column", "justify-content-center", "align-items-center");
         this.style.width = "100%"
@@ -19,6 +19,8 @@ export class LoginForm extends HTMLFormElement {
         buttonsContainer.classList.add("d-flex", "flex-row", "gap-1");
         this.submitButton = new BootstrapButton("submitButton", "Login", "submit", "primary", "person-check-fill");
         this.registerButton = new BootstrapButton("registerButton", "Register", "button", "dark", "person-fill-add");
+        if (registerBtnAction)
+            this.registerButton.addEventListener("click", () => registerBtnAction());
         buttonsContainer.appendChild(this.submitButton);
         buttonsContainer.appendChild(this.registerButton);
         this.appendChild(buttonsContainer);
