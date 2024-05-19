@@ -3,7 +3,7 @@ export class Request {
 
     static async post(route, body) {
         try {
-            return await fetch(`${Request.API_URL}/${route}`, {
+            return await fetch(`${Request.API_URL}${route}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
