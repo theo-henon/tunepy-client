@@ -2,14 +2,15 @@ import {Navbar} from "./components/navbar.js";
 import {ComponentsPage} from "./pages/componentsPage.js";
 import {LoginPage} from "./pages/loginPage.js";
 import {Request} from "./utils/request.js";
+import {RegisterPage} from "./pages/registerPage.js";
 
 export class App {
     constructor() {
         this.app = document.getElementById('app');
 
         // Create all pages
-
-        this.loginPage = new LoginPage(async () => this.login(), () => alert("Toto"));
+        this.registerPage = new RegisterPage(async () => this.register());
+        this.loginPage = new LoginPage(async () => this.login(), () => this.displayPage(this.registerPage));
         this.componentsPage = new ComponentsPage();
 
         // Create navigation bar
@@ -55,6 +56,38 @@ export class App {
             localStorage.setItem("username", username);
             localStorage.setItem("access_token", responseBody.access_token);
         }
+        alert(responseBody.msg);
+
+        // TODO: Redirect to another page
+        this.displayPage(null);
+    }
+
+    async register() {
+        this.registerPage.showRegisterStatus(true);
+        const username = this.registerPage.registerForm.getUsername();
+        const password = this.registerPage.registerForm.getPassword();
+        const passwordRepeat = this.registerPage.registerForm.getPasswordRepeat();
+
+        if (!username || !password || !passwordRepeat)
+            return;
+
+        if (password !== passwordRepeat) {
+            alert("Passwords don't match!");
+            return;
+        }
+
+        const response = await Request.post("/users/register", {
+            "username": username,
+            "password": password
+        });
+
+        this.registerPage.showRegisterStatus(false);
+        if (!response)
+            return;
+
+        const responseBody = await response.json();
+        if (response.ok)
+            localStorage.setItem("access_token", responseBody.access_token);
         alert(responseBody.msg);
 
         // TODO: Redirect to another page
