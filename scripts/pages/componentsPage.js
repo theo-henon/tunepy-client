@@ -1,6 +1,7 @@
 import {DropDown} from "../components/dropDown.js";
 import {LoginForm} from "../components/loginForm.js";
 import {RegisterForm} from "../components/registerForm.js";
+import { SongsTable } from "../components/songsTable.js";
 
 export class ComponentsPage extends HTMLDivElement {
     constructor() {
@@ -14,6 +15,10 @@ export class ComponentsPage extends HTMLDivElement {
             {
                 text: "RegisterForm",
                 onclick: () => this.displayComponent(new RegisterForm())
+            },
+            {
+                text: "SongsTable",
+                onclick: () => this.displayComponent(new SongsTable())
             }
         ]);
         this.appendChild(this.componentDropDown);
