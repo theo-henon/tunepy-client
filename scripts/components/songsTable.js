@@ -1,10 +1,11 @@
 import bootstrap from 'bootstrap/dist/js/bootstrap.min.js';
 
 export class SongsTable extends HTMLTableElement {
-    constructor() {
+    constructor(songs = []) {
         super();
         this.classList.add("table", "table-hover");
-        this.innerHTML = `
+
+        let body = `
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -17,44 +18,34 @@ export class SongsTable extends HTMLTableElement {
                     <th scope="col">Release date</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
+            <tbody>`
+        for (const song of songs)
+            body += `
+                 <tr>
+                    <th scope="row">${song.id}</th>
                     <td>
                         <button class="btn" type="button"><i class="bi bi-play-fill"></i></button>
                     </td>
-                    <td>Example song</td>
-                    <td>Example artist</td>
-                    <td>Example album</td>
-                    <td>Example genre</td>
-                    <td>00:00</td>
-                    <td>${new Date().toLocaleDateString()}</td>
+                    <td>${song.title}</td>
+                    <td>${song.title}</td>
+                    <td>${song.album}</td>
+                    <td>${song.genre}</td>
+                    <td>${Math.floor(song.duration /60).toString().padStart(2, '0')}:${(song.duration % 60).toString().padStart(2, '0')}</td>
+                    <td>${song.release_date.toLocaleDateString()}</td>
                 </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>
-                        <button class="btn" type="button"><i class="bi bi-play-fill"></i></button>
-                    </td>
-                    <td>Example song</td>
-                    <td>Example artist</td>
-                    <td>Example album</td>
-                    <td>Example genre</td>
-                    <td>00:00</td>
-                    <td>${new Date().toLocaleDateString()}</td>
-                </tr>
+                `;
+        body += `
             </tbody>
-
-            <!-- Offcanvas -->
             <div class="offcanvas offcanvas-start" tabindex="-1" id="songDetailsOffcanvas" aria-labelledby="songDetailsLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="songDetailsLabel">Song Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
-                    <!-- Content will be dynamically filled -->
                 </div>
             </div>
-        `;
+            `;
+        this.innerHTML = body;
 
         this.querySelectorAll('tbody tr').forEach(row => {
             row.addEventListener('click', (event) => {
@@ -71,4 +62,4 @@ export class SongsTable extends HTMLTableElement {
     }
 }
 
-customElements.define("songs-table", SongsTable, { extends: "table" });
+customElements.define("songs-table", SongsTable, {extends: "table"});
