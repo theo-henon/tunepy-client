@@ -1,3 +1,4 @@
+import { BorderSpinner } from "../components/borderSpinner.js";
 import {RegisterForm} from "../components/registerForm.js";
 
 export class RegisterPage extends HTMLDivElement {
@@ -6,6 +7,7 @@ export class RegisterPage extends HTMLDivElement {
         this.classList.add("d-flex", "flex-column", "justify-content-center", "align-items-center");
 
         this.registerForm = new RegisterForm();
+        this.registerForm.classList.add("mt-3");
         this.registerForm.style.width = "25%";
         this.registerForm.addEventListener("submit", event => {
             event.preventDefault();
@@ -13,14 +15,14 @@ export class RegisterPage extends HTMLDivElement {
         })
         this.appendChild(this.registerForm);
 
-        this.registerStatus = document.createElement("p");
-        this.registerStatus.innerHTML = "Trying to create your account...";
+        this.spinner = new BorderSpinner();
+        this.spinner.classList.add("mt-3");
         this.showRegisterStatus(false);
-        this.appendChild(this.registerStatus);
+        this.appendChild(this.spinner);
     }
 
     showRegisterStatus(value = false) {
-        this.registerStatus.hidden = !value;
+        this.spinner.hidden = !value;
     }
 }
 

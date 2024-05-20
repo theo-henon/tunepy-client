@@ -1,4 +1,5 @@
 import {LoginForm} from "../components/loginForm.js";
+import { BorderSpinner } from "../components/borderSpinner.js";
 
 export class LoginPage extends HTMLDivElement {
     constructor(loginAction, registerBtnAction) {
@@ -6,6 +7,7 @@ export class LoginPage extends HTMLDivElement {
         this.classList.add("d-flex", "flex-column", "justify-content-center", "align-items-center");
 
         this.loginForm = new LoginForm(registerBtnAction);
+        this.loginForm.classList.add("mt-3");
         this.loginForm.style.width = "25%";
         this.loginForm.addEventListener("submit", async event => {
             event.preventDefault();
@@ -13,14 +15,14 @@ export class LoginPage extends HTMLDivElement {
         });
         this.appendChild(this.loginForm);
 
-        this.loginStatus = document.createElement("p");
-        this.loginStatus.innerHTML = "Trying to log in...";
+        this.spinner = new BorderSpinner();
+        this.spinner.classList.add("mt-3");
+        this.appendChild(this.spinner);
         this.showLoginStatus(false);
-        this.appendChild(this.loginStatus);
     }
 
     showLoginStatus(value = false) {
-        this.loginStatus.hidden = !value;
+        this.spinner.hidden = !value;
     }
 }
 
