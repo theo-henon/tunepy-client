@@ -1,5 +1,4 @@
-import bootstrap from 'bootstrap/dist/js/bootstrap.min.js';
-
+import { OffCanvas } from "../components/offCanvas.js";
 import { SongsTable } from "../components/songsTable.js";
 
 export class SongsPage extends HTMLDivElement {
@@ -22,28 +21,15 @@ export class SongsPage extends HTMLDivElement {
             genre: "Example genre",
             duration: 185,
             release_date: new Date()
-        }], (row) => this.onRowClick(row));
+        }], (row) => this.onSongClick(row));
         this.appendChild(this.songsTable);
 
-        /*         this.innerHTML += `
-                <div class="offcanvas offcanvas-start" tabindex="-1" id="songDetailsOffcanvas" aria-labelledby="songDetailsLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="songDetailsLabel">Song Details</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                    </div>
-                </div>
-                ` */
+        this.offCanvas = new OffCanvas("songDetailsOffCanvas", "Song details");
+        this.appendChild(this.offCanvas);
     }
 
-    onRowClick(row) {
-        console.log(row);
-        const offcanvas = document.getElementById("songDetailsOffcanvas");
-        if (offcanvas) {
-            const bootstrapOffcanvas = new bootstrap.Offcanvas(offcanvas);
-            bootstrapOffcanvas.show();
-        }
+    onSongClick(row) {
+        this.offCanvas.show();
     }
 }
 
