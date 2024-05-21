@@ -4,6 +4,28 @@ import { SongsTable } from "../components/songsTable.js";
 export class SongsPage extends HTMLDivElement {
     constructor() {
         super();
+        
+        this.toolbar = document.createElement("div");
+        this.toolbar.classList.add("container-fluid", "mt-3");
+        this.toolbar.innerHTML = `
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="btn-group me-2" role="group" aria-label="Upload group">
+                    <button type="button" class="btn btn-primary">
+                        <i class="bi bi-cloud-arrow-up"></i>
+                        Upload new song
+                    </button>
+                </div>
+                <div class="btn-group" role="group" aria-label="Display limit group">
+                    <select class="form-select" aria-label="Display limit">
+                        <option selected>Show 10</option>
+                        <option value="20">Show 20</option>
+                        <option value="50">Show 50</option>
+                        <option value="100">Show 100</option>
+                    </select>
+                </div>
+            </div>
+        `;
+        this.appendChild(this.toolbar);
 
         this.songsTable = new SongsTable([{
             id: 1,
