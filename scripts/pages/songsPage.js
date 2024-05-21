@@ -48,6 +48,39 @@ export class SongsPage extends HTMLDivElement {
 
         this.songDetails = new SongDetailsOffCanvas("songDetailsOffCanvas", "Song details");
         this.appendChild(this.songDetails);
+
+        this.pagination = document.createElement("nav");
+        this.pagination.classList.add("d-flex", "align-items-center", "justify-content-center");
+        this.pagination.setAttribute("aria-label", "Page navigation");
+        this.pagination.innerHTML = `
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item active">
+                    <a class="page-link" href="#">1</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">...</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">10</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        `;
+        this.appendChild(this.pagination);
     }
 
     onSongClick(row) {
