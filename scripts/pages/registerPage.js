@@ -1,5 +1,5 @@
-import { BorderSpinner } from "../components/borderSpinner.js";
-import {RegisterForm} from "../components/registerForm.js";
+import { Spinner } from "../components/spinner.js";
+import { RegisterForm } from "../components/registerForm.js";
 
 export class RegisterPage extends HTMLDivElement {
     constructor(registerAction) {
@@ -15,7 +15,7 @@ export class RegisterPage extends HTMLDivElement {
         })
         this.appendChild(this.registerForm);
 
-        this.spinner = new BorderSpinner();
+        this.spinner = new Spinner();
         this.spinner.classList.add("mt-3");
         this.showRegisterStatus(false);
         this.appendChild(this.spinner);
@@ -26,4 +26,4 @@ export class RegisterPage extends HTMLDivElement {
     }
 }
 
-customElements.define("register-page", RegisterPage, {extends: "div"});
+customElements.define("register-page", RegisterPage, { extends: "div" });

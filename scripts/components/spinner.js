@@ -1,4 +1,4 @@
-export class BorderSpinner extends HTMLDivElement {
+export class Spinner extends HTMLDivElement {
     constructor(color = "primary", placeholder = "Loading...")  {
         super();
         this.classList.add("spinner-border", `text-${color}`);
@@ -11,4 +11,4 @@ export class BorderSpinner extends HTMLDivElement {
     }
 }
 
-customElements.define("border-spinner", BorderSpinner, {extends: "div"});
+customElements.define("border-spinner", Spinner, {extends: "div"});

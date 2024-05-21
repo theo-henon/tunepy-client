@@ -1,5 +1,5 @@
-import {LoginForm} from "../components/loginForm.js";
-import { BorderSpinner } from "../components/borderSpinner.js";
+import { LoginForm } from "../components/loginForm.js";
+import { Spinner } from "../components/spinner.js";
 
 export class LoginPage extends HTMLDivElement {
     constructor(loginAction, registerBtnAction) {
@@ -15,7 +15,7 @@ export class LoginPage extends HTMLDivElement {
         });
         this.appendChild(this.loginForm);
 
-        this.spinner = new BorderSpinner();
+        this.spinner = new Spinner();
         this.spinner.classList.add("mt-3");
         this.appendChild(this.spinner);
         this.showLoginStatus(false);
@@ -26,4 +26,4 @@ export class LoginPage extends HTMLDivElement {
     }
 }
 
-customElements.define("login-page", LoginPage, {extends: "div"});
+customElements.define("login-page", LoginPage, { extends: "div" });
