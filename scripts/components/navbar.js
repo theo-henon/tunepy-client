@@ -37,6 +37,12 @@ export class Navbar extends HTMLElement {
                     </ul>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#" id="settingsNavbarItem" data-bs-toggle="tooltip" data-bs-title="This feature is not handled yet.">
+                                <i class="bi bi-gear"></i>
+                                Settings
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="#" id="accountNavbarItem">
                                 <i class="bi bi-person-circle"></i>
                                 Account
