@@ -35,8 +35,9 @@ export class SongsTable extends HTMLTableElement {
         body += `</tbody>`;
         this.innerHTML = body;
 
-        this.querySelectorAll('tbody tr').forEach(row => {
-            row.addEventListener('click', () => {
+        this.querySelectorAll("tbody tr").forEach(row => {
+            row.addEventListener("click", _ => {
+                row.children[1].children[0].addEventListener("click", event => event.stopPropagation());
                 onRowClick(row);
             });
         });
