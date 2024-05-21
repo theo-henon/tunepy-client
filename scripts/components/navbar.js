@@ -1,93 +1,67 @@
+import bootstrap from 'bootstrap/dist/js/bootstrap.min.js';
+
 export class Navbar extends HTMLElement {
-    constructor(items) {
+    constructor(clickEvent) {
         super();
-        this.classList.add("navbar", "navbar-expand-lg", "navbar-light", "bg-light");
+        this.classList.add("navbar", "navbar-expand-lg", "bg-body-tertiary")
 
-        this.container = document.createElement("div");
-        this.container.classList.add("container-fluid");
+        this.innerHTML = `
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="/vite.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                    TunePy
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#" id="songsNavbarItem">
+                                <i class="bi bi-music-note-beamed"></i>
+                                Songs
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="playlistsNavbarItem" data-bs-toggle="tooltip" data-bs-title="This feature is not handled yet.">
+                                <i class="bi bi-music-note-list"></i>
+                                Playlists
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="componentsNavbarItem">
+                                <i class="bi bi-bug"></i>
+                                Components (debug)
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#" id="accountNavbarItem">
+                                <i class="bi bi-person-circle"></i>
+                                Account
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        `;
 
-        this.createBrand();
-        this.createToggler();
-        this.createCollapse();
-
-        this.nav = document.createElement("ul");
-        this.nav.classList.add("navbar-nav");
-
-
-        items.forEach(item => this.addItem(item));
-        this.collapse.appendChild(this.nav);
-        this.container.appendChild(this.collapse);
-
-        this.appendChild(this.container);
+        this.querySelectorAll(".nav-link").forEach(link => link.addEventListener("click", () => {
+            this.setActiveItem(link);
+            clickEvent(link);
+        }));
     }
 
-    createBrand() {
-        const img = document.createElement("img");
-        img.src = "/vite.svg";
-        img.alt = "Logo";
-        img.style.width = "30px";
-        img.style.height = "30px";
-        img.classList.add("me-2");
-        this.container.appendChild(img);
-
-        this.brand = document.createElement("a");
-        this.brand.classList.add("navbar-brand");
-        this.brand.innerText = "TunePy";
-        this.container.appendChild(this.brand);
-    }
-
-    createToggler() {
-        this.toggler = document.createElement("button");
-        this.toggler.classList.add("navbar-toggler");
-        this.toggler.type = "button";
-        this.toggler.setAttribute("data-bs-toggle", "collapse");
-        this.toggler.setAttribute("data-bs-target", "#navbarNav");
-        this.toggler.setAttribute("aria-controls", "navbarNav");
-        this.toggler.setAttribute("aria-expanded", "false");
-        this.toggler.setAttribute("aria-label", "Toggle navigation");
-        this.toggler.innerHTML = '<span class="navbar-toggler-icon"></span>';
-        this.container.appendChild(this.toggler);
-    }
-
-    createCollapse() {
-        this.collapse = document.createElement("div");
-        this.collapse.classList.add("collapse", "navbar-collapse");
-        this.collapse.id = "navbarNav";
-    }
-
-    addItem(item) {
-        const navItem = document.createElement("li");
-        navItem.classList.add("nav-item");
-
-
-        const navLink = document.createElement("a");
-        navLink.classList.add("nav-link");
-
-        if (item.active) {
-            navLink.classList.add("active");
-            this.selectedItem = navLink;
-        }
-
-        if (item.disabled) {
-            navLink.classList.add("disabled");
-            navLink.setAttribute("aria-disabled", "true");
-        }
-
-        if (item.onclick)
-            navLink.addEventListener("click", (event) => {
-                event.target.classList.toggle("active");
-                this.selectedItem.classList.toggle("active");
-                this.selectedItem = event.target;
-                item.onclick();
-            });
-
-        navLink.innerText = item.text;
-        navLink.href = "#"
-
-        navItem.appendChild(navLink);
-        this.nav.appendChild(navItem);
+    setActiveItem(item) {
+        this.querySelectorAll(".nav-link").forEach(link => {
+            if (item === link && !link.classList.contains("active")) {
+                link.classList.add("active");
+            } else if (item !== link)
+                link.classList.remove("active");
+        });
     }
 }
 
 // Define the custom element
-customElements.define('custom-navbar', Navbar);
+customElements.define('custom-navbar', Navbar, { extends: "nav" });

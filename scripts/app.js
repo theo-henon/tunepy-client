@@ -18,21 +18,10 @@ export class App {
         this.songsPage = new SongsPage();
 
         // Create navigation bar
-        const username = localStorage.getItem("username");
-        const accountItem = {
-            text: username ? "My profile" : "Login",
-            onclick: username ? _ => this.displayPage(this.profilePage) : _ => this.displayPage(this.loginPage)
-        }
-        const navItems =     [
-            {text: "Songs", active: true, onclick: _ => this.displayPage(this.songsPage)},
-            {text: "Playlists"},
-            accountItem,
-            {text: "Components (Debug)", onclick: _ => this.displayPage(this.componentsPage)},
-        ];
-        this.navbar = new Navbar(navItems);
+        this.navbar = new Navbar(link => this.onNavbarItemClick(link));
         this.app.appendChild(this.navbar);
 
-        this.app.appendChild(new ComponentsPage());
+        this.app.appendChild(this.componentsPage);
     }
 
     displayPage(newPage) {
@@ -41,6 +30,15 @@ export class App {
             this.app.removeChild(currentPage);
         if (newPage)
             this.app.appendChild(newPage);
+    }
+
+    onNavbarItemClick(link) {
+        if (link.id == "songsNavbarItem")
+            this.displayPage(this.songsPage);
+        else if (link.id == "componentsNavbarItem")
+            this.displayPage(this.componentsPage);
+        else if (link.id == "accountNavbarItem")
+            this.displayPage(this.loginPage);
     }
 
     async login() {
