@@ -1,4 +1,4 @@
-import { OffCanvas } from "../components/offCanvas.js";
+import { SongDetailsOffCanvas } from "../components/songDetailsOffCanvas.js";
 import { SongsTable } from "../components/songsTable.js";
 
 export class SongsPage extends HTMLDivElement {
@@ -24,12 +24,19 @@ export class SongsPage extends HTMLDivElement {
         }], (row) => this.onSongClick(row));
         this.appendChild(this.songsTable);
 
-        this.offCanvas = new OffCanvas("songDetailsOffCanvas", "Song details");
-        this.appendChild(this.offCanvas);
+        this.songDetails = new SongDetailsOffCanvas("songDetailsOffCanvas", "Song details");
+        this.appendChild(this.songDetails);
     }
 
     onSongClick(row) {
-        this.offCanvas.show();
+        this.songDetails.show({
+            title: row.children[2].innerText,
+            artist: row.children[3].innerText,
+            album: row.children[4].innerText,
+            genre: row.children[5].innerText,
+            duration: row.children[6].innerText,
+            releaseDate: row.children[7].innerText
+        });
     }
 }
 

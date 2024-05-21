@@ -15,7 +15,7 @@ export class RegisterForm extends HTMLFormElement {
         this.passwordRepeatField = new FieldBlock("passwordRepeat", "password", "Repeat password");
         this.appendChild(this.passwordRepeatField);
 
-        this.submitButton = new BootstrapButton("submitButton", "Register", "submit", "primary", "person-fill-add");
+        this.submitButton = new BootstrapButton("submitButton", "Register", "submit", "primary", "person-add");
         this.appendChild(this.submitButton);
     }
 
