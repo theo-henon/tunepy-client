@@ -21,7 +21,7 @@ export class App {
         this.navbar = new Navbar(link => this.onNavbarItemClick(link));
         this.app.appendChild(this.navbar);
 
-        this.app.appendChild(this.componentsPage);
+        this.app.appendChild(this.songsPage);
     }
 
     displayPage(newPage) {
@@ -33,11 +33,11 @@ export class App {
     }
 
     onNavbarItemClick(link) {
-        if (link.id == "songsNavbarItem")
+        if (link.id === "songsNavbarItem")
             this.displayPage(this.songsPage);
-        else if (link.id == "componentsNavbarItem")
+        else if (link.id === "componentsNavbarItem")
             this.displayPage(this.componentsPage);
-        else if (link.id == "accountNavbarItem")
+        else if (link.id === "accountNavbarItem")
             this.displayPage(this.loginPage);
     }
 

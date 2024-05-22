@@ -1,5 +1,6 @@
 import { SongDetailsOffCanvas } from "../components/songDetailsOffCanvas.js";
 import { SongsTable } from "../components/songsTable.js";
+import {PlayControls} from "../components/playControls.js";
 
 export class SongsPage extends HTMLDivElement {
     constructor() {
@@ -136,6 +137,9 @@ export class SongsPage extends HTMLDivElement {
             </div>    
         `;
         this.appendChild(this.uploadSongModal);
+
+        this.playControls = new PlayControls();
+        this.appendChild(this.playControls);
     }
 
     onSongClick(row) {
