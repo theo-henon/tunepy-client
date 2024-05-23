@@ -4,6 +4,7 @@ import {Request} from "./utils/request.js";
 import {RegisterPage} from "./pages/registerPage.js";
 import {ProfilePage} from "./pages/profilePage.js";
 import {SongsPage} from "./pages/songsPage.js";
+import {ServerSelectionPage} from "./pages/serverSelectionPage.js";
 
 export class App {
     constructor() {
@@ -14,12 +15,13 @@ export class App {
         this.loginPage = new LoginPage(async () => this.login(), () => this.displayPage(this.registerPage));
         this.profilePage = new ProfilePage(localStorage.getItem("username"));
         this.songsPage = new SongsPage();
+        this.serverSelectionPage = new ServerSelectionPage();
 
         // Create navigation bar
         this.navbar = new Navbar(link => this.onNavbarItemClick(link));
         this.app.appendChild(this.navbar);
 
-        this.app.appendChild(this.songsPage);
+        this.app.appendChild(this.serverSelectionPage);
     }
 
     displayPage(newPage) {
