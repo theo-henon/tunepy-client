@@ -1,5 +1,4 @@
 import {Navbar} from "./components/navbar.js";
-import {ComponentsPage} from "./pages/componentsPage.js";
 import {LoginPage} from "./pages/loginPage.js";
 import {Request} from "./utils/request.js";
 import {RegisterPage} from "./pages/registerPage.js";
@@ -13,7 +12,6 @@ export class App {
         // Create all pages
         this.registerPage = new RegisterPage(async () => this.register());
         this.loginPage = new LoginPage(async () => this.login(), () => this.displayPage(this.registerPage));
-        this.componentsPage = new ComponentsPage();
         this.profilePage = new ProfilePage(localStorage.getItem("username"));
         this.songsPage = new SongsPage();
 

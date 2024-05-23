@@ -28,12 +28,6 @@ export class Navbar extends HTMLElement {
                                 Playlists
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" id="componentsNavbarItem">
-                                <i class="bi bi-bug"></i>
-                                Components (debug)
-                            </a>
-                        </li>
                     </ul>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
