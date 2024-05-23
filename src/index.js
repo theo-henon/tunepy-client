@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import bootstrap from 'bootstrap/dist/js/bootstrap.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-import {App} from "./app.js";
+import {App} from "./js/app.js";
 
 
 const app = new App();

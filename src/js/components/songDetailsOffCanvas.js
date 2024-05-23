@@ -1,4 +1,4 @@
-import { OffCanvas } from "./offCanvas";
+import { OffCanvas } from "./offCanvas.js";
 
 export class SongDetailsOffCanvas extends OffCanvas {
     constructor() {
