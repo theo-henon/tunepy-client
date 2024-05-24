@@ -15,7 +15,13 @@ export class App {
         this.loginPage = new LoginPage(async () => this.login(), () => this.displayPage(this.registerPage));
         this.profilePage = new ProfilePage(localStorage.getItem("username"));
         this.songsPage = new SongsPage();
-        this.serverSelectionPage = new ServerSelectionPage();
+        this.serverSelectionPage = new ServerSelectionPage([{
+            name: "Main server",
+            address: "localhost:8080"
+        }, {
+            name: "Secondary server",
+            address: "localhost:8081"
+        }]);
 
         // Create navigation bar
         this.navbar = new Navbar(link => this.onNavbarItemClick(link));
