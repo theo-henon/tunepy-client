@@ -21,7 +21,7 @@ export class App {
         }, {
             name: "Secondary server",
             address: "localhost:8081"
-        }]);
+        }], this.joinServer, this.editServer, this.removeServer);
 
         // Create navigation bar
         this.navbar = new Navbar(link => this.onNavbarItemClick(link));
@@ -41,8 +41,6 @@ export class App {
     onNavbarItemClick(link) {
         if (link.id === "songsNavbarItem")
             this.displayPage(this.songsPage);
-        else if (link.id === "componentsNavbarItem")
-            this.displayPage(this.componentsPage);
         else if (link.id === "accountNavbarItem")
             this.displayPage(this.loginPage);
     }
@@ -105,5 +103,17 @@ export class App {
 
         // TODO: Redirect to another page
         this.displayPage(null);
+    }
+
+    joinServer(server) {
+        alert(`Joining server '${server.name}' at ${server.address}`);
+    }
+
+    editServer(server) {
+        alert(`Editing server '${server.name}' at ${server.address}`);
+    }
+
+    removeServer(server) {
+        alert(`Removing server '${server.name}' at ${server.address}`);
     }
 }
