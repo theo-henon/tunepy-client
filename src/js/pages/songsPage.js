@@ -1,17 +1,20 @@
-import { SongDetailsOffCanvas } from "../components/songDetailsOffCanvas.js";
-import { SongsTable } from "../components/songsTable.js";
+import {SongDetailsOffCanvas} from "../components/songDetailsOffCanvas.js";
+import {SongsTable} from "../components/songsTable.js";
 import {PlayControls} from "../components/playControls.js";
+import {UploadSongModal} from "../components/uploadSongModal.js";
 
 export class SongsPage extends HTMLDivElement {
     constructor() {
         super();
-        
+
+
+        const uploadSongModalId = "uploadSongModal";
         this.toolbar = document.createElement("div");
         this.toolbar.classList.add("container-fluid", "mt-3");
         this.toolbar.innerHTML = `
             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                 <div class="btn-group me-2" role="group" aria-label="Upload group">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadSongModal">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${uploadSongModalId}">
                         <i class="bi bi-cloud-arrow-up"></i>
                         Upload new song
                     </button>
@@ -83,59 +86,7 @@ export class SongsPage extends HTMLDivElement {
         `;
         this.appendChild(this.pagination);
 
-        this.uploadSongModal = document.createElement("div");
-        this.uploadSongModal.classList.add("modal", "fade");
-        this.uploadSongModal.id = "uploadSongModal";
-        this.uploadSongModal.tabIndex = -1;
-        this.uploadSongModal.setAttribute("aria-labelledby", "Upload song modal");
-        this.uploadSongModal.setAttribute("aria-hidden", "true");
-        this.uploadSongModal.innerHTML = `
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="uploadSongModalTitle">Upload a new song</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group mb-2">
-                            <label for="title">Title</label>
-                            <input type="text" class="form-control" id="title" name="title" placeholder="Enter song title">
-                        </div>
-                        <div class="form-group mb-2">
-                            <label for="artist">Artist</label>
-                            <input type="text" class="form-control" id="artist" name="artist" placeholder="Enter artist name">
-                        </div>
-                        <div class="form-group mb-2">
-                            <label for="album">Album</label>
-                            <input type="text" class="form-control" id="album" name="album" placeholder="Enter album name">
-                        </div>
-                        <div class="form-group mb-2">
-                            <label for="genre">Genre</label>
-                            <input type="text" class="form-control" id="genre" name="genre" placeholder="Enter genre">
-                        </div>
-                        <div class="form-group mb-2">
-                            <label for="releaseDate">Release Date</label>
-                            <input type="date" class="form-control" id="releaseDate" name="releaseDate">
-                        </div>
-                        <hr>
-                        <div class="mb-2">
-                            <label for="formFile" class="form-label">Select music file<span class="text-danger">*</span></label>
-                            <input class="form-control" type="file" id="">
-                        </div>
-                        <div class="progress" role="progressbar" aria-label="Upload progress" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                            <div class="progress-bar" style="width: 20%"></div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">
-                        <i class="bi bi-cloud-arrow-up"></i>
-                        Upload
-                    </button>
-                </div>
-            </div>    
-        `;
+        this.uploadSongModal = new UploadSongModal(uploadSongModalId, form => console.log(form));
         this.appendChild(this.uploadSongModal);
 
         this.playControls = new PlayControls();
@@ -154,4 +105,4 @@ export class SongsPage extends HTMLDivElement {
     }
 }
 
-customElements.define("songs-page", SongsPage, { extends: "div" });
+customElements.define("songs-page", SongsPage, {extends: "div"});
