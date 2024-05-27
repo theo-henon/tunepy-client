@@ -59,7 +59,7 @@ export class App {
     }
 
     async login() {
-        this.loginPage.showLoginStatus(true);
+        this.loginPage.showSpinner(true);
         const username = this.loginPage.loginForm.getUsername();
         const password = this.loginPage.loginForm.getPassword();
 
@@ -71,7 +71,7 @@ export class App {
             "password": password
         });
 
-        this.loginPage.showLoginStatus(false);
+        this.loginPage.showSpinner(false);
         if (!response)
             return;
 
@@ -87,7 +87,7 @@ export class App {
     }
 
     async register() {
-        this.registerPage.showRegisterStatus(true);
+        this.registerPage.showSpinner(true);
         const username = this.registerPage.registerForm.getUsername();
         const password = this.registerPage.registerForm.getPassword();
         const passwordRepeat = this.registerPage.registerForm.getPasswordRepeat();
@@ -105,7 +105,7 @@ export class App {
             "password": password
         });
 
-        this.registerPage.showRegisterStatus(false);
+        this.registerPage.showSpinner(false);
         if (!response)
             return;
 

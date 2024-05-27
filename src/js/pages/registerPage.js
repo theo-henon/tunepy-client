@@ -17,11 +17,11 @@ export class RegisterPage extends HTMLDivElement {
 
         this.spinner = new Spinner();
         this.spinner.classList.add("mt-3");
-        this.showRegisterStatus(false);
+        this.showSpinner(false);
         this.appendChild(this.spinner);
     }
 
-    showRegisterStatus(value = false) {
+    showSpinner(value = false) {
         this.spinner.hidden = !value;
     }
 }

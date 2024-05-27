@@ -18,10 +18,10 @@ export class LoginPage extends HTMLDivElement {
         this.spinner = new Spinner();
         this.spinner.classList.add("mt-3");
         this.appendChild(this.spinner);
-        this.showLoginStatus(false);
+        this.showSpinner(false);
     }
 
-    showLoginStatus(value = false) {
+    showSpinner(value = false) {
         this.spinner.hidden = !value;
     }
 }
