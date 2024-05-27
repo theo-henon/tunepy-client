@@ -5,6 +5,9 @@ import {ServersList} from "../utils/serversList.js";
 export class ServerSelectionPage extends HTMLDivElement {
     constructor(serversList = new ServersList(), joinAction, editAction, removeAction) {
         super();
+        this.joinAction = joinAction;
+        this.editAction = editAction;
+        this.removeAction = removeAction;
         this.serversList = serversList;
         this.classList.add("d-flex", "flex-column", "align-items-center", "gap-3");
 
@@ -12,7 +15,12 @@ export class ServerSelectionPage extends HTMLDivElement {
         title.innerText = "Server selection";
         this.appendChild(title);
 
-        this.addServerModal = new AddServerModal("addServerModal");
+        this.addServerModal = new AddServerModal("addServerModal", form => {
+            this.addServer({
+                name: form.getServerName(),
+                address: form.getServerAddress()
+            });
+        });
         this.appendChild(this.addServerModal);
 
         this.addServerBtn = document.createElement("button");
@@ -24,8 +32,13 @@ export class ServerSelectionPage extends HTMLDivElement {
 
         this.serversListGroup = document.createElement("div");
         this.serversListGroup.classList.add("list-group", "w-50");
-        this.serversList.list.forEach(server => this.serversListGroup.appendChild(new ServerListGroupItem(server, joinAction, editAction, removeAction)))
+        this.serversList.list.forEach(this.addServer);
         this.appendChild(this.serversListGroup);
+    }
+
+    addServer(server) {
+        this.serversList.add(server);
+        this.serversListGroup.appendChild(new ServerListGroupItem(server, this.joinAction, this.editAction, this.removeAction));
     }
 }
 

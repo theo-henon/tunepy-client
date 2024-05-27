@@ -3,8 +3,7 @@ export class ServersList {
         this.list = list;
     }
 
-    add(name, address) {
-        let server = { name: name, address: address };
+    add(server) {
         if (this.list.some(s => s.name === server.name && s.address === server.address))
             throw new Error(`Server already exists: ${server.name}`);
         else
