@@ -5,10 +5,14 @@ import {RegisterPage} from "./pages/registerPage.js";
 import {ProfilePage} from "./pages/profilePage.js";
 import {SongsPage} from "./pages/songsPage.js";
 import {ServerSelectionPage} from "./pages/serverSelectionPage.js";
+import {ServersList} from "./utils/serversList.js";
 
 export class App {
     constructor() {
         this.app = document.getElementById('app');
+
+        // Get servers list
+        this.serversList = ServersList.fromLocalStorage();
 
         // Create all pages
         this.registerPage = new RegisterPage(async () => this.register());
