@@ -13,7 +13,6 @@ export class App {
 
         // Get servers list and selected server
         this.serversList = ServersList.fromLocalStorage();
-        this.selectedServer = this.serversList.selected();
 
         // Create all pages
         this.registerPage = new RegisterPage(async () => this.register());
@@ -26,14 +25,14 @@ export class App {
         this.navbar = new Navbar(link => this.onNavbarItemClick(link));
         this.app.appendChild(this.navbar);
 
-        if (!this.selectedServer)
+        if (!this.selectedServer())
             this.displayPage(this.serverSelectionPage);
         else
             this.displayPage(this.songsPage);
     }
 
     displayPage(newPage, requireSelectServer = false) {
-        if (requireSelectServer && !this.selectedServer) {
+        if (requireSelectServer && !this.selectedServer()) {
             alert("Please select a server to display this content.");
             this.displayPage(this.serverSelectionPage);
             return;
@@ -44,6 +43,10 @@ export class App {
             this.app.removeChild(currentPage);
         if (newPage)
             this.app.appendChild(newPage);
+    }
+
+    selectedServer() {
+        return this.serversList.selected();
     }
 
     onNavbarItemClick(link) {
