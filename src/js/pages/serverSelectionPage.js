@@ -1,4 +1,5 @@
 import {ServerListGroupItem} from "../components/serverListGroupItem.js";
+import {AddServerModal} from "../components/addServerModal.js";
 
 export class ServerSelectionPage extends HTMLDivElement {
     constructor(serversList = [], joinAction, editAction, removeAction) {
@@ -9,9 +10,14 @@ export class ServerSelectionPage extends HTMLDivElement {
         title.innerText = "Server selection";
         this.appendChild(title);
 
+        this.addServerModal = new AddServerModal("addServerModal");
+        this.appendChild(this.addServerModal);
+
         this.addServerBtn = document.createElement("button");
         this.addServerBtn.classList.add("btn", "btn-primary");
         this.addServerBtn.innerHTML = "<i class=\"bi bi-plus-circle\"></i> Add a server";
+        this.addServerBtn.setAttribute("data-bs-toggle", "modal");
+        this.addServerBtn.setAttribute("data-bs-target", "#addServerModal");
         this.appendChild(this.addServerBtn);
 
         this.serverList = document.createElement("div");
