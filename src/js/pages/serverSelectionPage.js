@@ -32,12 +32,12 @@ export class ServerSelectionPage extends HTMLDivElement {
 
         this.serversListGroup = document.createElement("div");
         this.serversListGroup.classList.add("list-group", "w-50");
-        this.serversList.list.forEach(this.addServer);
+        this.serversList.list.forEach(server => this.serversListGroup.appendChild(new ServerListGroupItem(server, this.joinAction, this.editAction, this.removeAction)));
         this.appendChild(this.serversListGroup);
     }
 
     addServer(server) {
-        this.serversList.add(server);
+        this.serversList.add(server, true);
         this.serversListGroup.appendChild(new ServerListGroupItem(server, this.joinAction, this.editAction, this.removeAction));
     }
 }

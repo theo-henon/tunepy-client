@@ -3,11 +3,13 @@ export class ServersList {
         this.list = list;
     }
 
-    add(server) {
+    add(server, updateInLocalStorage = false) {
         if (this.list.some(s => s.name === server.name && s.address === server.address))
             throw new Error(`Server already exists: ${server.name}`);
         else
             this.list.push(server);
+        if (updateInLocalStorage)
+            this.toLocalStorage();
     }
 
     edit(oldName, newDetails) {
