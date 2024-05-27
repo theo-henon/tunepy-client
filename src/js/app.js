@@ -11,30 +11,34 @@ export class App {
     constructor() {
         this.app = document.getElementById('app');
 
-        // Get servers list
+        // Get servers list and selected server
         this.serversList = ServersList.fromLocalStorage();
+        this.selectedServer = this.serversList.selected();
 
         // Create all pages
         this.registerPage = new RegisterPage(async () => this.register());
         this.loginPage = new LoginPage(async () => this.login(), () => this.displayPage(this.registerPage));
         this.profilePage = new ProfilePage(localStorage.getItem("username"));
         this.songsPage = new SongsPage();
-        this.serverSelectionPage = new ServerSelectionPage([{
-            name: "Main server",
-            address: "localhost:8080"
-        }, {
-            name: "Secondary server",
-            address: "localhost:8081"
-        }], this.joinServer, this.editServer, this.removeServer);
+        this.serverSelectionPage = new ServerSelectionPage(this.serversList, server => this.joinServer(server), server => this.editServer(server), server => this.removeServer(server));
 
         // Create navigation bar
         this.navbar = new Navbar(link => this.onNavbarItemClick(link));
         this.app.appendChild(this.navbar);
 
-        this.app.appendChild(this.serverSelectionPage);
+        if (!this.selectedServer)
+            this.displayPage(this.serverSelectionPage);
+        else
+            this.displayPage(this.songsPage);
     }
 
-    displayPage(newPage) {
+    displayPage(newPage, requireSelectServer = false) {
+        if (requireSelectServer && !this.selectedServer) {
+            alert("Please select a server to display this content.");
+            this.displayPage(this.serverSelectionPage);
+            return;
+        }
+
         const currentPage = this.app.children[1];
         if (currentPage)
             this.app.removeChild(currentPage);
@@ -44,9 +48,11 @@ export class App {
 
     onNavbarItemClick(link) {
         if (link.id === "songsNavbarItem")
-            this.displayPage(this.songsPage);
+            this.displayPage(this.songsPage, true);
         else if (link.id === "accountNavbarItem")
-            this.displayPage(this.loginPage);
+            this.displayPage(this.loginPage, true);
+        else if (link.id === "serversNavbarItem")
+            this.displayPage(this.serverSelectionPage);
     }
 
     async login() {
@@ -110,7 +116,8 @@ export class App {
     }
 
     joinServer(server) {
-        alert(`Joining server '${server.name}' at ${server.address}`);
+        this.serversList.select(server.name);
+        this.displayPage(this.songsPage);
     }
 
     editServer(server) {

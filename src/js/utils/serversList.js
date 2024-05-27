@@ -25,6 +25,20 @@ export class ServersList {
             this.list.splice(index, 1);
     }
 
+    select(name) {
+        sessionStorage.setItem("selectedServer", JSON.stringify(this.list.find(server => server.name === name)));
+    }
+
+    selected() {
+        const selectedServer = sessionStorage.getItem("selectedServer");
+        try {
+            return selectedServer ? JSON.parse(selectedServer) : null;
+        } catch (e) {
+            sessionStorage.removeItem("selectedItem");
+            return null;
+        }
+    }
+
     static fromLocalStorage() {
         let serversList = localStorage.getItem("serversList");
         if (serversList)
