@@ -29,7 +29,7 @@ export class ServerListGroupItem extends HTMLDivElement {
             <div class="collapse" id="${collapseId}">
                 <div class="card card-body gap-1">
                     <button class="btn btn-success"><i class="bi bi-arrow-right"></i> Select</button>
-                    <button class="btn btn-primary"><i class="bi bi-pen"></i> Edit</button>
+                    <button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="This feature is not handled yet."><i class="bi bi-pen"></i> Edit</button>
                     <button class="btn btn-danger"><i class="bi bi-trash"></i> Remove</button>
                 </div>
             </div>

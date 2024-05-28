@@ -67,6 +67,7 @@ export class App {
     }
 
     editServer(server) {
+        // TODO: Implement logic here (display a form to edit server details)
         alert(`Editing server '${server.name}' at ${server.address}`);
     }
 
