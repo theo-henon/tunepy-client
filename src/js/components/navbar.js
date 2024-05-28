@@ -1,5 +1,3 @@
-import bootstrap from 'bootstrap/dist/js/bootstrap.min.js';
-
 export class Navbar extends HTMLElement {
     constructor(clickEvent) {
         super();
@@ -30,6 +28,12 @@ export class Navbar extends HTMLElement {
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#" id="serversNavbarItem">
+                                <i class="bi bi-server"></i>
+                                Servers list
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="#" id="settingsNavbarItem" data-bs-toggle="tooltip" data-bs-title="This feature is not handled yet.">
                                 <i class="bi bi-gear"></i>
