@@ -46,7 +46,7 @@ export class App {
         if (newPage)
             this.app.appendChild(newPage);
     }
-
+  
     selectedServer() {
         return this.serversList.selected();
     }
@@ -74,5 +74,4 @@ export class App {
     removeServer(server) {
         if (confirm(`The server '${server.name}' will be removed.`))
             this.serverSelectionPage.removeServer(server);
-    }
 }
