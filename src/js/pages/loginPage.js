@@ -1,17 +1,20 @@
-import { LoginForm } from "../components/loginForm.js";
-import { Spinner } from "../components/spinner.js";
+import {LoginForm} from "../components/loginForm.js";
+import {Spinner} from "../components/spinner.js";
+import {Requests} from "../utils/requests.js";
 
 export class LoginPage extends HTMLDivElement {
-    constructor(loginAction, registerBtnAction) {
+    constructor(onLogin, onRegisterBtnClick) {
         super();
         this.classList.add("d-flex", "flex-column", "justify-content-center", "align-items-center");
 
-        this.loginForm = new LoginForm(registerBtnAction);
+        this.loginForm = new LoginForm(onRegisterBtnClick);
         this.loginForm.classList.add("mt-3");
         this.loginForm.style.width = "25%";
         this.loginForm.addEventListener("submit", async event => {
             event.preventDefault();
-            loginAction();
+            this.showSpinner(true);
+            await Requests.login(this.loginForm.getUsername(), this.loginForm.getPassword(), onLogin);
+            this.showSpinner(false);
         });
         this.appendChild(this.loginForm);
 
@@ -26,4 +29,4 @@ export class LoginPage extends HTMLDivElement {
     }
 }
 
-customElements.define("login-page", LoginPage, { extends: "div" });
+customElements.define("login-page", LoginPage, {extends: "div"});

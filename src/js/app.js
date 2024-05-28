@@ -1,6 +1,6 @@
 import {Navbar} from "./components/navbar.js";
 import {LoginPage} from "./pages/loginPage.js";
-import {Request} from "./utils/request.js";
+import {Requests} from "./utils/requests.js";
 import {RegisterPage} from "./pages/registerPage.js";
 import {ProfilePage} from "./pages/profilePage.js";
 import {SongsPage} from "./pages/songsPage.js";
@@ -11,12 +11,12 @@ export class App {
     constructor() {
         this.app = document.getElementById('app');
 
-        // Get servers list and selected server
+        // Get servers list
         this.serversList = ServersList.fromLocalStorage();
 
         // Create all pages
-        this.registerPage = new RegisterPage(async () => this.register());
-        this.loginPage = new LoginPage(async () => this.login(), () => this.displayPage(this.registerPage));
+        this.registerPage = new RegisterPage(() => this.displayPage(this.loginPage));
+        this.loginPage = new LoginPage(() => this.displayPage(this.songsPage), () => this.displayPage(this.registerPage));
         this.profilePage = new ProfilePage(localStorage.getItem("username"));
         this.songsPage = new SongsPage();
         this.serverSelectionPage = new ServerSelectionPage(this.serversList, server => this.joinServer(server), server => this.editServer(server), server => this.removeServer(server));
@@ -27,8 +27,10 @@ export class App {
 
         if (!this.selectedServer())
             this.displayPage(this.serverSelectionPage);
-        else
+        else {
+            Requests.init(this.selectedServer());
             this.displayPage(this.songsPage);
+        }
     }
 
     displayPage(newPage, requireSelectServer = false) {
@@ -58,68 +60,9 @@ export class App {
             this.displayPage(this.serverSelectionPage);
     }
 
-    async login() {
-        this.loginPage.showSpinner(true);
-        const username = this.loginPage.loginForm.getUsername();
-        const password = this.loginPage.loginForm.getPassword();
-
-        if (!username || !password)
-            return;
-
-        const response = await Request.post("/users/login", {
-            "username": username,
-            "password": password
-        });
-
-        this.loginPage.showSpinner(false);
-        if (!response)
-            return;
-
-        const responseBody = await response.json();
-        if (response.ok) {
-            localStorage.setItem("username", username);
-            localStorage.setItem("access_token", responseBody.access_token);
-        }
-        alert(responseBody.msg);
-
-        // TODO: Redirect to another page
-        this.displayPage(null);
-    }
-
-    async register() {
-        this.registerPage.showSpinner(true);
-        const username = this.registerPage.registerForm.getUsername();
-        const password = this.registerPage.registerForm.getPassword();
-        const passwordRepeat = this.registerPage.registerForm.getPasswordRepeat();
-
-        if (!username || !password || !passwordRepeat)
-            return;
-
-        if (password !== passwordRepeat) {
-            alert("Passwords don't match!");
-            return;
-        }
-
-        const response = await Request.post("/users/register", {
-            "username": username,
-            "password": password
-        });
-
-        this.registerPage.showSpinner(false);
-        if (!response)
-            return;
-
-        const responseBody = await response.json();
-        if (response.ok)
-            localStorage.setItem("access_token", responseBody.access_token);
-        alert(responseBody.msg);
-
-        // TODO: Redirect to another page
-        this.displayPage(null);
-    }
-
     joinServer(server) {
         this.serversList.select(server.name);
+        Requests.init(server);
         this.displayPage(this.songsPage);
     }
 
