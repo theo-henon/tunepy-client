@@ -20,14 +20,19 @@ export class ServersList {
             throw new Error(`Server not found: ${oldName}`);
     }
 
-    remove(name) {
+    remove(name, updateInLocalStorage = false) {
         const index = this.list.findIndex(server => server.name === name);
         if (index !== -1)
             this.list.splice(index, 1);
+        if (updateInLocalStorage)
+            this.toLocalStorage();
     }
 
     select(name) {
-        sessionStorage.setItem("selectedServer", JSON.stringify(this.list.find(server => server.name === name)));
+        if (name === null)
+            sessionStorage.removeItem("selectedServer");
+        else
+            sessionStorage.setItem("selectedServer", JSON.stringify(this.list.find(server => server.name === name)));
     }
 
     selected() {

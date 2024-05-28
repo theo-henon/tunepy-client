@@ -71,6 +71,7 @@ export class App {
     }
 
     removeServer(server) {
-        alert(`Removing server '${server.name}' at ${server.address}`);
+        if (confirm(`The server '${server.name}' will be removed.`))
+            this.serverSelectionPage.removeServer(server);
     }
 }

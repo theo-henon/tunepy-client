@@ -40,6 +40,22 @@ export class ServerSelectionPage extends HTMLDivElement {
         this.serversList.add(server, true);
         this.serversListGroup.appendChild(new ServerListGroupItem(server, this.joinAction, this.editAction, this.removeAction));
     }
+
+    removeServer(server) {
+        const selected = this.serversList.selected();
+        if (selected === server)
+            this.serversList.select(null);
+        this.serversList.remove(server.name, true);
+        let listGroupItem = null;
+        for (const child of this.serversListGroup.children) {
+            if (child.server === server) {
+                listGroupItem = child;
+                break;
+            }
+        }
+        if (listGroupItem)
+            this.serversListGroup.removeChild(listGroupItem);
+    }
 }
 
 customElements.define("server-selection-page", ServerSelectionPage, {extends: "div"});
