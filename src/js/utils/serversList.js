@@ -42,9 +42,11 @@ export class ServersList {
 
     static fromLocalStorage() {
         let serversList = localStorage.getItem("serversList");
-        if (serversList)
-                return new ServersList(JSON.parse(serversList));
-        return new ServersList();
+        try {
+            return serversList ? new ServersList(JSON.parse(serversList)) : new ServersList();
+        } catch (e) {
+            new ServersList();
+        }
     }
 
     toLocalStorage() {
